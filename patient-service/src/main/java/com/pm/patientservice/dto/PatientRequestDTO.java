@@ -15,7 +15,7 @@ public class PatientRequestDTO {
     @Size (max = 100, message = "Name can't exceed 100 characters")
     private String name;
 
-    @NotBlank (message = "Name can't be empty ")
+    @NotBlank (message = "Email can't be empty ")
     @Email(message = "Email should be valid")
     private String email;
 
