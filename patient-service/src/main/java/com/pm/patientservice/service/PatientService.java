@@ -32,5 +32,5 @@ public class PatientService {
         return PatientMapper.toDto(patient);
 
     }
-    
+
 }
