@@ -3,11 +3,11 @@ POST localhost:4000/patients
 Content-Type: application/json
 
 {
-"name": "Ahmad dido",
-"email": "dido@gmail.com",
-"address": "123 main Street",
-"dateOfBirth": "1934-10-19",
-"registeredDate": "2025-04-05"
+  "name": "Ahmad dido",
+  "email": "dido@gmail.com",
+  "address": "123 main Street",
+  "dateOfBirth": "1934-10-19",
+  "registeredDate": "2025-04-05"
 }
 
 ###

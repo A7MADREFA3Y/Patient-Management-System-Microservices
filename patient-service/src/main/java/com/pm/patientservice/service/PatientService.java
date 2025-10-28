@@ -10,7 +10,6 @@ import com.pm.patientservice.repository.PatientRepository;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -19,7 +18,7 @@ public class PatientService {
 
     private PatientRepository patientRepository;
 
-    public PatientService (PatientRepository patientRepository) {
+    public PatientService(PatientRepository patientRepository) {
         this.patientRepository = patientRepository;
     }
 
@@ -33,7 +32,7 @@ public class PatientService {
 
     public PatientResponseDTO createPatient(PatientRequestDTO patientRequestDTO) {
 
-        if(patientRepository.existsByEmail(patientRequestDTO.getEmail())) {
+        if (patientRepository.existsByEmail(patientRequestDTO.getEmail())) {
             throw new EmailAlreadyExistsException("A patient with this email " +
                     "already exists :" + patientRequestDTO.getEmail());
         }
@@ -47,9 +46,9 @@ public class PatientService {
     public PatientResponseDTO updatePatient(UUID patientId,
                                             PatientRequestDTO patientRequestDTO) {
         Patient patient = patientRepository.findById(patientId).orElseThrow(
-                ()-> new PatientNotFoundException("Patient not found with ID : " + patientId));
+                () -> new PatientNotFoundException("Patient not found with ID : " + patientId));
 
-        if(patientRepository.existsByEmailAndIdNot(patientRequestDTO.getEmail(),  patientId)) {
+        if (patientRepository.existsByEmailAndIdNot(patientRequestDTO.getEmail(), patientId)) {
             throw new EmailAlreadyExistsException("A patient with this email " +
                     "already exists :" + patientRequestDTO.getEmail());
 
@@ -71,10 +70,6 @@ public class PatientService {
     public void deletePatient(UUID id) {
         patientRepository.deleteById(id);
     }
-
-
-
-
 
 
 }
