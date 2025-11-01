@@ -22,6 +22,22 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
+    // GRPC
+    implementation 'io.grpc:grpc-netty-shaded:1.69.0'
+    implementation 'io.grpc:grpc-protobuf:1.69.0'
+    implementation 'io.grpc:grpc-stub:1.69.0'
+
+// Necessary for Java 9+
+    compileOnly 'org.apache.tomcat:annotations-api:6.0.53'
+
+// gRPC Spring Boot Starter
+    implementation 'net.devh:grpc-spring-boot-starter:3.1.0.RELEASE'
+
+// Protobuf
+    implementation 'com.google.protobuf:protobuf-java:4.29.1'
+
+
 }
 
 tasks.named('test') {
