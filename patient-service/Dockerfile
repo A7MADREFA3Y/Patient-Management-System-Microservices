@@ -1,38 +1,21 @@
-# Builder stage: Use Eclipse Temurin JDK 24 Alpine with Gradle Wrapper
-FROM eclipse-temurin:24-jdk-alpine AS builder
-
-# Install bash, unzip, curl needed to run Gradle wrapper
-RUN apk add --no-cache bash unzip curl
+FROM maven:3.9.9-eclipse-temurin-21 AS builder
 
 WORKDIR /app
 
-# Copy Gradle wrapper and config files for caching dependencies
-COPY gradlew .
-COPY gradle gradle
-COPY build.gradle settings.gradle ./
+COPY pom.xml .
 
-# Make gradlew executable
-RUN chmod +x ./gradlew
+RUN mvn dependency:go-offline -B
 
-# Download dependencies offline without building
-RUN ./gradlew --no-daemon --refresh-dependencies
-
-# Copy source code
 COPY src ./src
 
-# Build and package the jar, skip tests to speed up build
-RUN ./gradlew clean build -x test
+RUN mvn clean package
 
-# Runtime stage: Use Eclipse Temurin JDK 24 Alpine runtime
-FROM eclipse-temurin:24-jdk-alpine AS runner
+FROM openjdk:21-jdk AS runner
 
 WORKDIR /app
 
-# Copy the built jar from builder stage
-COPY --from=builder /app/build/libs/*.jar ./app.jar
+COPY --from=builder ./app/target/patient-service-0.0.1-SNAPSHOT.jar ./app.jar
 
-# Expose your application port
 EXPOSE 4000
 
-# Run the jar application
 ENTRYPOINT ["java", "-jar", "app.jar"]
