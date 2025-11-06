@@ -15,7 +15,7 @@ public class BillingGrpcService extends BillingsServiceImplBase {
 
     @Override
     public void createBillingAccount(billing.BillingRequest billingRequest,
-                                     StreamObserver<billing.BillingResponse> responseStreamObserver){
+                                     StreamObserver<billing.BillingResponse> responseStreamObserver) {
 
         log.info("createBillingAccount request received {}", billingRequest.toString());
 
@@ -30,6 +30,6 @@ public class BillingGrpcService extends BillingsServiceImplBase {
         responseStreamObserver.onNext(response);
         //The response is completed the cycle end here
         responseStreamObserver.onCompleted();
-        
+
     }
 }
