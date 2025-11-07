@@ -38,5 +38,5 @@ out/
 
 */target/*
 
-.run
+*.run
 .run/**
