@@ -15,11 +15,17 @@ import java.util.Optional;
 @RestController
 public class AuthController {
 
+    private final AuthService authService;
+
+    public AuthController(AuthService authService) {
+        this.authService = authService;
+    }
+
     @Operation(summary = "Generate token on user login")
     @PostMapping("/login")
     public ResponseEntity<LoginResponseDTO> login(@RequestBody LoginRequestDTO loginRequestDTO) {
 
-        Optional<String> tokenOptional = AuthService.authenticate(loginRequestDTO);
+        Optional<String> tokenOptional = authService.authenticate(loginRequestDTO);
         if (tokenOptional.isEmpty()) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
