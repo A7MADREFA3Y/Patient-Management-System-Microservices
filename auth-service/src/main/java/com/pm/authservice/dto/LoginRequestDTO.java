@@ -1,4 +1,4 @@
-package com.pm.authservice.model.dto;
+package com.pm.authservice.dto;
 
 import jakarta.persistence.Entity;
 import jakarta.validation.constraints.Email;
